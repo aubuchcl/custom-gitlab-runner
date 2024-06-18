@@ -1,0 +1,17 @@
+[[runners]]
+  name = "local-custom-runner"
+  url = "https://gitlab.com/"
+  token = "glrt-XGzpimfDXuvSB55B4buU"
+  executor = "custom"
+  builds_dir = "/home/gitlab-runner/builds"
+  cache_dir = "/home/gitlab-runner/cache"
+  [runners.custom]
+    config_exec = "/scripts/config.sh"
+    prepare_exec = "/scripts/prepare.sh"
+    run_exec = "/scripts/run.sh"
+    cleanup_exec = "/scripts/cleanup.sh"
+
+[session_server]
+    listen_address = "[::]:8093"
+    advertise_address = "{{ADVERTISE_ADDRESS}}:8093"
+    session_timeout = 1800
