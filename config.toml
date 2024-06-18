@@ -13,5 +13,5 @@
 
 [session_server]
     listen_address = "[::]:8093"
-    advertise_address = "{{ADVERTISE_ADDRESS}}:8093"
+    advertise_address = "x.cycle.chrisaubuhcon.com"
     session_timeout = 1800
