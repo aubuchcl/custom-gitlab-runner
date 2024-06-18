@@ -1,3 +1,13 @@
+concurrent = 1
+check_interval = 0
+connection_max_age = "15m0s"
+shutdown_timeout = 0
+
+[session_server]
+  listen_address = "[::]:8093"
+  advertise_address = "x.cycle.chrisaubuchon.com:8093"
+  session_timeout = 1800
+
 [[runners]]
   name = "local-custom-runner"
   url = "https://gitlab.com/"
@@ -10,8 +20,3 @@
     prepare_exec = "/scripts/prepare.sh"
     run_exec = "/scripts/run.sh"
     cleanup_exec = "/scripts/cleanup.sh"
-
-[session_server]
-    listen_address = "[::]:8093"
-    advertise_address = "x.cycle.chrisaubuhcon.com:8093"
-    session_timeout = 1800
