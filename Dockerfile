@@ -1,5 +1,5 @@
 FROM gitlab/gitlab-runner:latest
-
+ARG REGISTRATION_TOKEN
 # Install any necessary dependencies
 RUN apt-get update && apt-get install -y curl jq
 
@@ -9,17 +9,15 @@ COPY prepare.sh /scripts/prepare.sh
 COPY run.sh /scripts/run.sh
 COPY cleanup.sh /scripts/cleanup.sh
 COPY somescript.sh /scritps/somescript.sh 
-COPY config.toml /etc/gitlab-runner/config.toml.template
+COPY config.toml /etc/gitlab-runner/config.toml
 
 RUN chmod +x /scripts/*.sh
 
-COPY ./start.sh ./
-RUN chmod +x /start.sh
-
+RUN sed -i "s/REPLACE_TOKEN/${REGISTRATION_TOKEN}/g" /etc/gitlab-runner/config.toml
 
 # Environment variables for GitLab Runner registration
 ENV CI_SERVER_URL=https://gitlab.com/
-ENV REGISTRATION_TOKEN=glrt-XGzpimfDXuvSB55B4buU
+ENV REGISTRATION_TOKEN=${REGISTRATION_TOKEN}
 ENV RUNNER_NAME=local-custom-runner
 ENV RUNNER_EXECUTOR=custom
 ENV RUNNER_TAG_LIST=local
@@ -32,6 +30,5 @@ RUN gitlab-runner register --non-interactive \
     --executor "custom" 
 
 
-ENTRYPOINT ["/start.sh"]    
 # Start the GitLab Runner
 CMD ["gitlab-runner", "run"]
