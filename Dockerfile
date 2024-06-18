@@ -31,4 +31,4 @@ RUN gitlab-runner register --non-interactive \
 
 
 # Start the GitLab Runner
-CMD ["gitlab-runner", "run"]
+CMD ["run"]
